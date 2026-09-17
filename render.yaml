@@ -6,15 +6,11 @@ services:
     name: instagram-agent-api
     runtime: python
     region: oregon
-    plan: starter
+    plan: free
     rootDir: backend
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
     healthCheckPath: /api/health
-    disk:
-      name: instagram-agent-storage
-      mountPath: /app/data
-      sizeGB: 5
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.9
@@ -25,9 +21,9 @@ services:
       - key: DEMO_MODE
         value: "false"
       - key: UPLOAD_DIR
-        value: /app/data/uploads
+        value: ./uploads
       - key: DATABASE_URL
-        value: sqlite+aiosqlite:////app/data/instagram_agent.db
+        value: sqlite+aiosqlite:///./instagram_agent.db
       - key: SECRET_KEY
         generateValue: true
       - key: PUBLIC_BASE_URL
