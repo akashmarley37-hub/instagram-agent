@@ -51,8 +51,6 @@ services:
   - type: web
     name: instagram-agent-dashboard
     runtime: static
-    region: oregon
-    plan: free
     rootDir: frontend
     buildCommand: npm ci && npm run build
     staticPublishPath: ./dist

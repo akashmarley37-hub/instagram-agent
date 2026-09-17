@@ -1,6 +1,9 @@
 import axios from 'axios';
 
-const RAW_BASE = (import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/$/, '') || '';
+const rawEnv = (import.meta.env.VITE_API_URL as string | undefined)?.trim().replace(/\/$/, '') || '';
+const RAW_BASE = rawEnv
+  ? (rawEnv.startsWith('http://') || rawEnv.startsWith('https://') ? rawEnv : `https://${rawEnv}`)
+  : '';
 const API_BASE = RAW_BASE ? `${RAW_BASE}/api` : '/api';
 
 export const getMediaUrl = (filenameOrUrl: string): string => {
